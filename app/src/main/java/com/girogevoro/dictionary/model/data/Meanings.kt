@@ -8,3 +8,5 @@ class Meanings(
     @field:SerializedName("imageUrl")
     val imageUrl: String?
 )
+
+
