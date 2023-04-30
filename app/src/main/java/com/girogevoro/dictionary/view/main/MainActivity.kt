@@ -13,15 +13,16 @@ import com.girogevoro.dictionary.model.data.AppState
 import com.girogevoro.dictionary.model.data.DataModel
 import com.girogevoro.dictionary.view.base.BaseActivity
 import com.girogevoro.dictionary.view.main.adapter.MainAdapter
-import dagger.android.AndroidInjection
 import javax.inject.Inject
 
 class MainActivity() : BaseActivity<AppState>() {
 
     @Inject
     internal lateinit var viewModelFactory: ViewModelProvider.Factory
-    override lateinit var model: MainViewModel
 
+    override val model: MainViewModel by lazy {
+        ViewModelProvider(this).get(MainViewModel::class.java)
+    }
 
     private val observer = Observer<AppState> { renderData(it) }
 
@@ -39,15 +40,9 @@ class MainActivity() : BaseActivity<AppState>() {
         }
 
     override fun onCreate(savedInstanceState: Bundle?) {
-        AndroidInjection.inject(this)
         super.onCreate(savedInstanceState)
         binding = ActivityMainBinding.inflate(layoutInflater)
         setContentView(binding.root)
-
-        model = viewModelFactory.create(MainViewModel::class.java)
-        model.subscribe().observe(this@MainActivity) {
-            renderData(it)
-        }
 
         binding.searchFab.setOnClickListener {
             val searchDialogFragment = SearchDialogFragment.newInstance()

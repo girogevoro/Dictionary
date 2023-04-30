@@ -1,21 +1,21 @@
 package com.girogevoro.dictionary.view.main
 
 import androidx.lifecycle.LiveData
-import androidx.lifecycle.ViewModel
 import com.girogevoro.dictionary.model.data.AppState
 import com.girogevoro.dictionary.model.datasource.DataSourceLocal
 import com.girogevoro.dictionary.model.datasource.DataSourceRemote
 import com.girogevoro.dictionary.model.repository.RepositoryImplementation
 import com.girogevoro.dictionary.view.base.BaseViewModel
-import dagger.MapKey
 import io.reactivex.observers.DisposableObserver
 import javax.inject.Inject
-import kotlin.reflect.KClass
 
 class MainViewModel @Inject constructor(
-    private val interactor: MainInteractor
-) : BaseViewModel<AppState>() {
 
+):BaseViewModel<AppState>() {
+    private val interactor: MainInteractor  = MainInteractor(
+        RepositoryImplementation(DataSourceRemote()),
+        RepositoryImplementation(DataSourceLocal())
+    )
     private var appState: AppState? = null
 
     fun subscribe(): LiveData<AppState> {
@@ -49,12 +49,4 @@ class MainViewModel @Inject constructor(
             }
         }
     }
-
-    @Target(
-        AnnotationTarget.FUNCTION,
-        AnnotationTarget.PROPERTY_GETTER,
-        AnnotationTarget.PROPERTY_SETTER
-    )
-    @MapKey
-    annotation class ViewModelKey(val value: KClass<out ViewModel>)
 }

@@ -4,14 +4,7 @@ plugins {
     id 'kotlin-kapt'
 }
 
-
 android {
-    kotlinOptions{
-        freeCompilerArgs += [
-                "-Xjvm-default=all",
-        ]
-    }
-
     compileSdk 33
 
     defaultConfig {
@@ -41,12 +34,7 @@ android {
     kotlinOptions {
         jvmTarget = '1.8'
     }
-
-
 }
-
-
-
 
 dependencies {
 
