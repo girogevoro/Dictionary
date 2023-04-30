@@ -1,9 +1,17 @@
 plugins {
     id 'com.android.application'
     id 'org.jetbrains.kotlin.android'
+    id 'kotlin-kapt'
 }
 
+
 android {
+    kotlinOptions{
+        freeCompilerArgs += [
+                "-Xjvm-default=all",
+        ]
+    }
+
     compileSdk 33
 
     defaultConfig {
@@ -33,7 +41,12 @@ android {
     kotlinOptions {
         jvmTarget = '1.8'
     }
+
+
 }
+
+
+
 
 dependencies {
 
@@ -57,5 +70,11 @@ dependencies {
 
     implementation 'io.reactivex.rxjava2:rxandroid:2.1.0'
     implementation 'io.reactivex.rxjava2:rxjava:2.2.8'
+
+    implementation 'com.google.dagger:dagger:2.42'
+    kapt 'com.google.dagger:dagger-compiler:2.42'
+    implementation 'com.google.dagger:dagger-android-support:2.42'
+    kapt 'com.google.dagger:dagger-android-processor:2.42'
+
 
 }

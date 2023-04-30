@@ -6,13 +6,8 @@ import android.text.TextWatcher
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
-import android.widget.ImageView
-import android.widget.TextView
 import androidx.fragment.app.DialogFragment
-import com.girogevoro.dictionary.R
 import com.girogevoro.dictionary.databinding.SearchDialogBinding
-import com.google.android.material.bottomsheet.BottomSheetDialogFragment
-import com.google.android.material.textfield.TextInputEditText
 
 class SearchDialogFragment : DialogFragment() {
     private var _binding: SearchDialogBinding? = null
