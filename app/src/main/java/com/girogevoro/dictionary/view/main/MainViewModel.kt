@@ -3,16 +3,12 @@ package com.girogevoro.dictionary.view.main
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.ViewModel
 import com.girogevoro.dictionary.model.data.AppState
-import com.girogevoro.dictionary.model.datasource.DataSourceLocal
-import com.girogevoro.dictionary.model.datasource.DataSourceRemote
-import com.girogevoro.dictionary.model.repository.RepositoryImplementation
 import com.girogevoro.dictionary.view.base.BaseViewModel
 import dagger.MapKey
 import io.reactivex.observers.DisposableObserver
-import javax.inject.Inject
 import kotlin.reflect.KClass
 
-class MainViewModel @Inject constructor(
+class MainViewModel constructor(
     private val interactor: MainInteractor
 ) : BaseViewModel<AppState>() {
 

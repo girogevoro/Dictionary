@@ -13,13 +13,11 @@ import com.girogevoro.dictionary.model.data.AppState
 import com.girogevoro.dictionary.model.data.DataModel
 import com.girogevoro.dictionary.view.base.BaseActivity
 import com.girogevoro.dictionary.view.main.adapter.MainAdapter
-import dagger.android.AndroidInjection
+import org.koin.androidx.viewmodel.ext.android.viewModel
 import javax.inject.Inject
 
 class MainActivity() : BaseActivity<AppState>() {
-
-    @Inject
-    internal lateinit var viewModelFactory: ViewModelProvider.Factory
+    
     override lateinit var model: MainViewModel
 
 
@@ -39,15 +37,10 @@ class MainActivity() : BaseActivity<AppState>() {
         }
 
     override fun onCreate(savedInstanceState: Bundle?) {
-        AndroidInjection.inject(this)
+
         super.onCreate(savedInstanceState)
         binding = ActivityMainBinding.inflate(layoutInflater)
         setContentView(binding.root)
-
-        model = viewModelFactory.create(MainViewModel::class.java)
-        model.subscribe().observe(this@MainActivity) {
-            renderData(it)
-        }
 
         binding.searchFab.setOnClickListener {
             val searchDialogFragment = SearchDialogFragment.newInstance()
@@ -61,6 +54,15 @@ class MainActivity() : BaseActivity<AppState>() {
                 supportFragmentManager,
                 BOTTOM_SHEET_FRAGMENT_DIALOG_TAG
             )
+        }
+
+        if (binding.mainActivityRecyclerview.adapter != null) {
+            throw IllegalStateException("ViewModel not initialised")
+        }
+        val viewModel: MainViewModel by viewModel()
+        model = viewModel
+        model.subscribe().observe(this@MainActivity) {
+            renderData(it)
         }
     }
 
