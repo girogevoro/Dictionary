@@ -60,7 +60,10 @@ class SearchDialogFragment : DialogFragment() {
         super.onStart()
         val currentDialog = dialog
         if (currentDialog != null) {
-            currentDialog.window?.setLayout(ViewGroup.LayoutParams.MATCH_PARENT,ViewGroup.LayoutParams.WRAP_CONTENT)
+            currentDialog.window?.setLayout(
+                ViewGroup.LayoutParams.MATCH_PARENT,
+                ViewGroup.LayoutParams.WRAP_CONTENT
+            )
         }
     }
 

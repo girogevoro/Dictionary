@@ -1,56 +1,35 @@
 package com.girogevoro.dictionary.view.main
 
 import androidx.lifecycle.LiveData
-import androidx.lifecycle.ViewModel
 import com.girogevoro.dictionary.model.data.AppState
 import com.girogevoro.dictionary.view.base.BaseViewModel
-import dagger.MapKey
-import io.reactivex.observers.DisposableObserver
-import kotlin.reflect.KClass
+import kotlinx.coroutines.Dispatchers
+import kotlinx.coroutines.launch
+import kotlinx.coroutines.withContext
 
 class MainViewModel constructor(
     private val interactor: MainInteractor
 ) : BaseViewModel<AppState>() {
 
-    private var appState: AppState? = null
-
     fun subscribe(): LiveData<AppState> {
         return liveDataForViewToObserve
     }
 
-    override fun getData(word: String, isOnline: Boolean): LiveData<AppState> {
-        compositeDisposable.add(
-            interactor.getData(word, isOnline)
-                .subscribeOn(schedulerProvider.io())
-                .observeOn(schedulerProvider.ui())
-                .doOnSubscribe { liveDataForViewToObserve.value = AppState.Loading(null) }
-
-                .subscribeWith(getObserver())
-        )
-        return super.getData(word, isOnline)
+    override fun getData(word: String, isOnline: Boolean) {
+        liveDataForViewToObserve.value = AppState.Loading(null)
+        cancelJob()
+        viewModelCoroutineScope.launch { startInteractor(word, isOnline) }
     }
 
-    private fun getObserver(): DisposableObserver<AppState> {
-        return object : DisposableObserver<AppState>() {
-            override fun onNext(state: AppState) {
-                appState = state
-                liveDataForViewToObserve.value = state
-            }
-
-            override fun onError(e: Throwable) {
-                liveDataForViewToObserve.value = AppState.Error(e)
-            }
-
-            override fun onComplete() {
-            }
+    private suspend fun startInteractor(word: String, isOnline: Boolean) =
+        withContext(Dispatchers.IO) {
+            liveDataForViewToObserve.postValue(interactor.getData(word, isOnline))
         }
+
+    override fun onCleared() {
+        liveDataForViewToObserve.value = AppState.Success(null)
+        super.onCleared()
     }
 
-    @Target(
-        AnnotationTarget.FUNCTION,
-        AnnotationTarget.PROPERTY_GETTER,
-        AnnotationTarget.PROPERTY_SETTER
-    )
-    @MapKey
-    annotation class ViewModelKey(val value: KClass<out ViewModel>)
+
 }

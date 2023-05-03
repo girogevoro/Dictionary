@@ -1,21 +1,29 @@
 package com.girogevoro.dictionary.view.base
 
-import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
 import com.girogevoro.dictionary.model.data.AppState
-import com.girogevoro.dictionary.rx.SchedulerProvider
-import io.reactivex.disposables.CompositeDisposable
+import kotlinx.coroutines.CoroutineScope
+import kotlinx.coroutines.Dispatchers
+import kotlinx.coroutines.SupervisorJob
+import kotlinx.coroutines.cancelChildren
 
 abstract class BaseViewModel<T : AppState>(
     protected val liveDataForViewToObserve: MutableLiveData<T> = MutableLiveData(),
-    protected val compositeDisposable: CompositeDisposable = CompositeDisposable(),
-    protected val schedulerProvider: SchedulerProvider = SchedulerProvider()
 ) : ViewModel() {
-    open fun getData(word: String, isOnline: Boolean): LiveData<T> =
-        liveDataForViewToObserve
+
+    protected val viewModelCoroutineScope = CoroutineScope(
+        Dispatchers.Main + SupervisorJob()
+    )
+
+    abstract fun getData(word: String, isOnline: Boolean)
 
     override fun onCleared() {
-        compositeDisposable.clear()
+        super.onCleared()
+        cancelJob()
+    }
+
+    protected fun cancelJob() {
+        viewModelCoroutineScope.coroutineContext.cancelChildren()
     }
 }
