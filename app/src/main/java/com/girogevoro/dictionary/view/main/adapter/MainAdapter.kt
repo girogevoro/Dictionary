@@ -6,7 +6,7 @@ import android.view.ViewGroup
 import android.widget.TextView
 import androidx.recyclerview.widget.RecyclerView
 import com.girogevoro.dictionary.R
-import com.girogevoro.dictionary.model.data.DataModel
+import com.girogevoro.data.DataModel
 
 
 class MainAdapter(

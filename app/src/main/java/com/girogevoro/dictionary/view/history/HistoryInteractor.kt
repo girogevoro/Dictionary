@@ -1,7 +1,7 @@
 package com.girogevoro.dictionary.view.history
 
-import com.girogevoro.dictionary.model.data.AppState
-import com.girogevoro.dictionary.model.data.DataModel
+import com.girogevoro.data.AppState
+import com.girogevoro.data.DataModel
 import com.girogevoro.dictionary.model.repository.RepositoryLocal
 import com.girogevoro.dictionary.model.repository.Repository
 import com.girogevoro.dictionary.presenter.Interactor

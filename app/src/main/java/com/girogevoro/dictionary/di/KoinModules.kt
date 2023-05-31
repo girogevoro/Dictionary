@@ -2,7 +2,7 @@ package com.girogevoro.dictionary.di
 
 import android.content.Context
 import androidx.room.Room
-import com.girogevoro.dictionary.model.data.DataModel
+import com.girogevoro.data.DataModel
 import com.girogevoro.dictionary.model.datasource.retrofit.RetrofitImplementation
 import com.girogevoro.dictionary.model.datasource.room.HistoryDao
 import com.girogevoro.dictionary.model.datasource.room.HistoryDataBase
@@ -15,7 +15,6 @@ import com.girogevoro.dictionary.view.history.HistoryInteractor
 import com.girogevoro.dictionary.view.history.HistoryViewModel
 import com.girogevoro.dictionary.view.main.MainInteractor
 import com.girogevoro.dictionary.view.main.MainViewModel
-import org.koin.core.qualifier.named
 import org.koin.dsl.module
 
 object KoinModules {

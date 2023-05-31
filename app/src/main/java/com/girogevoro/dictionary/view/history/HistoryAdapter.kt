@@ -7,7 +7,7 @@ import android.widget.TextView
 import android.widget.Toast
 import androidx.recyclerview.widget.RecyclerView
 import com.girogevoro.dictionary.R
-import com.girogevoro.dictionary.model.data.DataModel
+import com.girogevoro.data.DataModel
 
 class HistoryAdapter : RecyclerView.Adapter<HistoryAdapter.RecyclerItemViewHolder>() {
     private var data: List<DataModel> = arrayListOf()

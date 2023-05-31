@@ -1,8 +1,8 @@
 package com.girogevoro.dictionary.model.datasource.room
 
-import com.girogevoro.dictionary.model.data.DataModel
-import com.girogevoro.dictionary.model.data.Meanings
-import com.girogevoro.dictionary.model.data.Translation
+import com.girogevoro.data.DataModel
+import com.girogevoro.data.Meanings
+import com.girogevoro.data.Translation
 
 fun mapHistoryEntityToSearchResult(list: List<HistoryEntity>): List<DataModel> {
     val dataModel = ArrayList<DataModel>()

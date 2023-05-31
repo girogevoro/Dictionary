@@ -10,8 +10,8 @@ import androidx.lifecycle.Observer
 import androidx.recyclerview.widget.LinearLayoutManager
 import com.girogevoro.dictionary.R
 import com.girogevoro.dictionary.databinding.ActivityMainBinding
-import com.girogevoro.dictionary.model.data.AppState
-import com.girogevoro.dictionary.model.data.DataModel
+import com.girogevoro.data.AppState
+import com.girogevoro.data.DataModel
 import com.girogevoro.dictionary.view.base.BaseActivity
 import com.girogevoro.dictionary.view.history.HistoryFragment
 import com.girogevoro.dictionary.view.history.SeacrhInHistoryDialogFragment
@@ -93,7 +93,7 @@ class MainActivity : BaseActivity<AppState>() {
                 if (appState.progress != null) {
                     binding.progressBarHorizontal.visibility = VISIBLE
                     binding.progressBarRound.visibility = GONE
-                    binding.progressBarHorizontal.progress = appState.progress
+                    binding.progressBarHorizontal.progress = appState.progress!!
                 } else {
                     binding.progressBarHorizontal.visibility = GONE
                     binding.progressBarRound.visibility = VISIBLE

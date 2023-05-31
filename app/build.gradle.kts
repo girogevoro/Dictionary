@@ -77,8 +77,8 @@ dependencies {
     implementation (Retrofit.RetrofitCoroutine)
     implementation (Retrofit.RxJavaAdapter)
     implementation (Retrofit.LoginInterceptor)
-    
-    //    // Koin
+
+    // Koin
     implementation (Koin.Core)
     implementation (Koin.Android)
     implementation (Koin.AndroidCompat)
@@ -95,4 +95,6 @@ dependencies {
 
     // Coil
     implementation (Coil.Coil)
+
+    implementation(project(":data"))
 }

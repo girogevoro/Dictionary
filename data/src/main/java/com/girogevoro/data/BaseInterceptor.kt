@@ -1,4 +1,4 @@
-package com.girogevoro.dictionary.model.data
+package com.girogevoro.data
 
 import okhttp3.Interceptor
 import okhttp3.Response
