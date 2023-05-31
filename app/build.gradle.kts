@@ -56,36 +56,43 @@ android {
 
 dependencies {
     // Android
-    implementation (Android.AppCompat)
-    // Coroutines
-    implementation (Kotlin.CoroutinesCore)
-    implementation (Kotlin.CoroutinesAndroid)
-    // Coil
-    implementation (Coil.Coil)
+   implementation (Android.AppCompat)
+
     // Kotlin
     implementation (Android.CoreKtx)
-    // Koin
-    implementation (Koin.Core)
-    implementation (Koin.Android)
-    implementation (Koin.AndroidCompat)
+    implementation (Android.KotlinStdlib)
+
     // UI
     implementation (Android.Material)
     implementation (Android.ConstrainLayout)
-    // OkHttp
-    implementation(Retrofit.LoginInterceptor)
+
+    //    // Tests
+    testImplementation (Tests.JUnit)
+    androidTestImplementation (Tests.AndroidJUnit)
+    androidTestImplementation(Tests.Espresso)
+
     // retrofit
     implementation(Retrofit.Retrofit)
     implementation(Retrofit.ConverterGson)
     implementation (Retrofit.RetrofitCoroutine)
     implementation (Retrofit.RxJavaAdapter)
+    implementation (Retrofit.LoginInterceptor)
+    
+    //    // Koin
+    implementation (Koin.Core)
+    implementation (Koin.Android)
+    implementation (Koin.AndroidCompat)
+
+    // Coroutines
+    implementation (Kotlin.CoroutinesCore)
+    implementation (Kotlin.CoroutinesAndroid)
+    implementation (Kotlin.CoroutinesAdapter)
+
     // Room
     implementation (Room.Core)
     kapt (Room.Compiler)
     implementation (Room.Ktx)
-    kapt(Room.SupportM1)
-    // Tests
-    androidTestImplementation(Tests.Espresso)
-    testImplementation (Tests.JUnit)
-    androidTestImplementation (Tests.AndroidJUnit)
 
+    // Coil
+    implementation (Coil.Coil)
 }

@@ -14,8 +14,8 @@ object Config {
 }
 
 object Versions {
-    const val retrofitVersions = "2.9.0"
-    const val okHttpVersion = "4.9.2"
+    const val retrofitVersions = "2.6.0"
+    const val okHttpVersion = "3.12.1"
     const val rxJavaAdapterVersion = "1.0.0"
     const val ktx = "1.6.0"
     const val appCompat = "1.3.1"
@@ -24,7 +24,7 @@ object Versions {
     const val swipeRefreshLayout = "1.1.0"
     const val coroutines = "1.5.1"
     const val koinVersions = "3.1.2"
-    const val roomVersions = "2.3.0"
+    const val roomVersions = "2.5.0"
     const val coilVersions= "1.0.0"
     const val retrofitCoroutineVersion = "0.9.2"
 }
@@ -39,6 +39,8 @@ object Retrofit {
 
 object Android {
     const val CoreKtx = "androidx.core:core-ktx:${Versions.ktx}"
+    const val KotlinStdlib = "org.jetbrains.kotlin:kotlin-stdlib:${Versions.ktx}"
+
     const val AppCompat = "androidx.appcompat:appcompat:${Versions.appCompat}"
     const val Material = "com.google.android.material:material:${Versions.materialVersions}"
     const val ConstrainLayout =
@@ -49,7 +51,8 @@ object Android {
 
 object Kotlin {
     const val CoroutinesCore = "org.jetbrains.kotlinx:kotlinx-coroutines-core:${Versions.coroutines}"
-    const val CoroutinesAndroid = "org.jetbrains.kotlinx:kotlinx-coroutines-android:${Versions.coroutines}"
+    const val CoroutinesAndroid = "org.jetbrains.kotlinx:kotlinx-coroutines-android:1.6.1"
+    const val CoroutinesAdapter = "com.jakewharton.retrofit:retrofit2-kotlin-coroutines-adapter:0.9.2"
 }
 
 object Koin {
@@ -62,7 +65,6 @@ object Room {
     const val Core = "androidx.room:room-runtime:${Versions.roomVersions}"
     const val Compiler = "androidx.room:room-compiler:${Versions.roomVersions}"
     const val Ktx = "androidx.room:room-ktx:${Versions.roomVersions}"
-    const val SupportM1 = "org.xerial:sqlite-jdbc:3.34.0"
 }
 
 object Tests {
