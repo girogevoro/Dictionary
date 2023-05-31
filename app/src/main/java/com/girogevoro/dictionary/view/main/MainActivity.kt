@@ -1,6 +1,8 @@
 package com.girogevoro.dictionary.view.main
 
 import android.os.Bundle
+import android.view.Menu
+import android.view.MenuItem
 import android.view.View.GONE
 import android.view.View.VISIBLE
 import android.widget.Toast
@@ -11,6 +13,8 @@ import com.girogevoro.dictionary.databinding.ActivityMainBinding
 import com.girogevoro.dictionary.model.data.AppState
 import com.girogevoro.dictionary.model.data.DataModel
 import com.girogevoro.dictionary.view.base.BaseActivity
+import com.girogevoro.dictionary.view.history.HistoryFragment
+import com.girogevoro.dictionary.view.history.SeacrhInHistoryDialogFragment
 import com.girogevoro.dictionary.view.main.adapter.MainAdapter
 import org.koin.androidx.viewmodel.ext.android.viewModel
 
@@ -125,6 +129,47 @@ class MainActivity : BaseActivity<AppState>() {
         binding.successLinearLayout.visibility = GONE
         binding.loadingFrameLayout.visibility = GONE
         binding.errorLinearLayout.visibility = VISIBLE
+    }
+
+
+    override fun onCreateOptionsMenu(menu: Menu?): Boolean {
+        menuInflater.inflate(R.menu.menu, menu)
+        return super.onCreateOptionsMenu(menu)
+    }
+
+    override fun onOptionsItemSelected(item: MenuItem): Boolean {
+        return when (item.itemId) {
+            R.id.searched_words -> {
+                startHistoryFragment("")
+                return true
+            }
+            else -> {
+                val searchInHistoryDialogFragment = SeacrhInHistoryDialogFragment.newInstance()
+                searchInHistoryDialogFragment.setOnSearchInHistoryClickListener(
+                    onSearchInHistoryClickListener
+                )
+                searchInHistoryDialogFragment.show(
+                    supportFragmentManager,
+                    BOTTOM_SHEET_FRAGMENT_DIALOG_TAG
+                )
+                return true
+            }
+        }
+    }
+
+    private val onSearchInHistoryClickListener: SeacrhInHistoryDialogFragment.OnSearchInHistoryClickListener =
+        object : SeacrhInHistoryDialogFragment.OnSearchInHistoryClickListener {
+            override fun onClick(searchWord: String) {
+                startHistoryFragment(searchWord)
+            }
+        }
+
+
+    private fun startHistoryFragment(word: String) {
+        supportFragmentManager.beginTransaction()
+            .replace(R.id.container, HistoryFragment(word))
+            .addToBackStack(null)
+            .commit()
     }
 
     companion object {
