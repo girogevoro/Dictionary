@@ -1,7 +1,7 @@
 package com.girogevoro.dictionary.view.main
 
 import androidx.lifecycle.LiveData
-import com.girogevoro.dictionary.model.data.AppState
+import com.girogevoro.data.AppState
 import com.girogevoro.dictionary.view.base.BaseViewModel
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.launch

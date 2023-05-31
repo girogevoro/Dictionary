@@ -1,8 +1,7 @@
 package com.girogevoro.dictionary.model.datasource.room
 
-import com.girogevoro.dictionary.model.data.AppState
-import com.girogevoro.dictionary.model.data.DataModel
-import com.girogevoro.dictionary.model.datasource.DataSource
+import com.girogevoro.data.AppState
+import com.girogevoro.data.DataModel
 import com.girogevoro.dictionary.model.datasource.DataSourceLocal
 
 class RoomDataBaseImplementation(private val historyDao: HistoryDao) :

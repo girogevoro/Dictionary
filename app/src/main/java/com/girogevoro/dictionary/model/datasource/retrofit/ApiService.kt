@@ -1,6 +1,6 @@
 package com.girogevoro.dictionary.model.datasource.retrofit
 
-import com.girogevoro.dictionary.model.data.DataModel
+import com.girogevoro.data.DataModel
 import kotlinx.coroutines.Deferred
 import retrofit2.http.GET
 import retrofit2.http.Query

@@ -1,7 +1,7 @@
 package com.girogevoro.dictionary.view.history
 
 import androidx.lifecycle.LiveData
-import com.girogevoro.dictionary.model.data.AppState
+import com.girogevoro.data.AppState
 import com.girogevoro.dictionary.utils.parseLocalSearchResults
 import com.girogevoro.dictionary.view.base.BaseViewModel
 import kotlinx.coroutines.launch

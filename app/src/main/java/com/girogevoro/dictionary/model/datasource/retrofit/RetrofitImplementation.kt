@@ -1,7 +1,7 @@
 package com.girogevoro.dictionary.model.datasource.retrofit
 
-import com.girogevoro.dictionary.model.data.BaseInterceptor
-import com.girogevoro.dictionary.model.data.DataModel
+import com.girogevoro.data.BaseInterceptor
+import com.girogevoro.data.DataModel
 import com.girogevoro.dictionary.model.datasource.DataSource
 import com.jakewharton.retrofit2.adapter.kotlin.coroutines.CoroutineCallAdapterFactory
 import okhttp3.Interceptor

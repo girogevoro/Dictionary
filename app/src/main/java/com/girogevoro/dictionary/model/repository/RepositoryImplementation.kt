@@ -1,6 +1,6 @@
 package com.girogevoro.dictionary.model.repository
 
-import com.girogevoro.dictionary.model.data.DataModel
+import com.girogevoro.data.DataModel
 import com.girogevoro.dictionary.model.datasource.DataSource
 
 class RepositoryImplementation(private val dataSource: DataSource<List<DataModel>>) :

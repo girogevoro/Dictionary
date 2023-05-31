@@ -2,7 +2,7 @@ package com.girogevoro.dictionary.view.base
 
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
-import com.girogevoro.dictionary.model.data.AppState
+import com.girogevoro.data.AppState
 import kotlinx.coroutines.CoroutineScope
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.SupervisorJob

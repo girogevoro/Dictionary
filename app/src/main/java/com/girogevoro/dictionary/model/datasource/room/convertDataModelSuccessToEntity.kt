@@ -1,6 +1,6 @@
 package com.girogevoro.dictionary.model.datasource.room
 
-import com.girogevoro.dictionary.model.data.AppState
+import com.girogevoro.data.AppState
 
 fun convertDataModelSuccessToEntity(appState: AppState): HistoryEntity? {
 

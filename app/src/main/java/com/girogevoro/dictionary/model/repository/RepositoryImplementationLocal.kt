@@ -1,7 +1,7 @@
 package com.girogevoro.dictionary.model.repository
 
-import com.girogevoro.dictionary.model.data.AppState
-import com.girogevoro.dictionary.model.data.DataModel
+import com.girogevoro.data.AppState
+import com.girogevoro.data.DataModel
 import com.girogevoro.dictionary.model.datasource.DataSourceLocal
 
 class RepositoryImplementationLocal(private val dataSource:

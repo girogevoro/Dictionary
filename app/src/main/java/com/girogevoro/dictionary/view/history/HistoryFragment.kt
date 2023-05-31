@@ -8,7 +8,7 @@ import android.widget.Toast
 import androidx.fragment.app.Fragment
 import com.girogevoro.dictionary.R
 import com.girogevoro.dictionary.databinding.FragmentHistoryBinding
-import com.girogevoro.dictionary.model.data.AppState
+import com.girogevoro.data.AppState
 import org.koin.androidx.viewmodel.ext.android.viewModel
 
 class HistoryFragment(private var searchedWord: String) : Fragment() {

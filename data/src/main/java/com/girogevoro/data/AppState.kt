@@ -1,4 +1,4 @@
-package com.girogevoro.dictionary.model.data
+package com.girogevoro.data
 
 sealed class AppState {
     data class Success(val data: List<DataModel>?) : AppState()

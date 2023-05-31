@@ -1,8 +1,8 @@
 package com.girogevoro.dictionary.utils
 
-import com.girogevoro.dictionary.model.data.AppState
-import com.girogevoro.dictionary.model.data.DataModel
-import com.girogevoro.dictionary.model.data.Meanings
+import com.girogevoro.data.AppState
+import com.girogevoro.data.DataModel
+import com.girogevoro.data.Meanings
 
 
 
@@ -42,9 +42,9 @@ private fun parseOnlineResult(
 ) {
     if (!dataModel.text.isNullOrBlank() && !dataModel.meanings.isNullOrEmpty()) {
         val newMeanings = arrayListOf<Meanings>()
-        for (meaning in dataModel.meanings) {
+        for (meaning in dataModel.meanings!!) {
             if (meaning.translation != null &&
-                !meaning.translation.translation.isNullOrBlank()
+                !meaning.translation!!.translation.isNullOrBlank()
             ) {
                 newMeanings.add(Meanings(meaning.translation, meaning.imageUrl))
             }
