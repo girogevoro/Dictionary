@@ -11,10 +11,14 @@ import com.girogevoro.dictionary.model.repository.Repository
 import com.girogevoro.dictionary.model.repository.RepositoryImplementation
 import com.girogevoro.dictionary.model.repository.RepositoryImplementationLocal
 import com.girogevoro.dictionary.model.repository.RepositoryLocal
+import com.girogevoro.dictionary.view.history.HistoryFragment
 import com.girogevoro.dictionary.view.history.HistoryInteractor
 import com.girogevoro.dictionary.view.history.HistoryViewModel
+import com.girogevoro.dictionary.view.main.MainActivity
 import com.girogevoro.dictionary.view.main.MainInteractor
 import com.girogevoro.dictionary.view.main.MainViewModel
+import org.koin.androidx.viewmodel.dsl.viewModel
+import org.koin.core.qualifier.named
 import org.koin.dsl.module
 
 object KoinModules {
@@ -37,20 +41,26 @@ object KoinModules {
     }
 
     val mainScreen = module {
-        factory {
-            MainInteractor(
-                remoteRepository = get(),
-                localRepository = get()
-            )
+
+        scope(named<MainActivity>()) {
+            scoped {
+                MainInteractor(
+                    remoteRepository = get(),
+                    localRepository = get())
+            }
+            viewModel { MainViewModel(interactor = get()) }
         }
-        factory { MainViewModel(interactor = get()) }
+
     }
 
     val historyScreen = module {
-        factory {
-            HistoryInteractor(repositoryRemote = get(),
-                repositoryLocal = get())
+        scope(named<HistoryFragment>()) {
+            scoped {
+                HistoryInteractor(
+                    repositoryRemote = get(),
+                    repositoryLocal = get())
+            }
+            viewModel { HistoryViewModel(interactor = get()) }
         }
-        factory { HistoryViewModel(interactor = get()) }
     }
 }

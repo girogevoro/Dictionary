@@ -6,13 +6,18 @@ import android.view.View
 import android.view.ViewGroup
 import android.widget.Toast
 import androidx.fragment.app.Fragment
+import com.girogevoro.data.AppState
 import com.girogevoro.dictionary.R
 import com.girogevoro.dictionary.databinding.FragmentHistoryBinding
-import com.girogevoro.data.AppState
+import org.koin.android.ext.android.getKoin
 import org.koin.androidx.viewmodel.ext.android.viewModel
+import org.koin.core.qualifier.named
 
 class HistoryFragment(private var searchedWord: String) : Fragment() {
 
+    private val scopeHistory by lazy {
+        getKoin().getOrCreateScope("historyId", named<HistoryFragment>())
+    }
     private lateinit var binding: FragmentHistoryBinding
     private lateinit var model: HistoryViewModel
     private val adapter: HistoryAdapter by lazy { HistoryAdapter() }
@@ -33,6 +38,11 @@ class HistoryFragment(private var searchedWord: String) : Fragment() {
         initViews()
     }
 
+    override fun onDestroy() {
+        scopeHistory.close()
+        super.onDestroy()
+    }
+
     private fun initViews() {
         binding.historyFragmentRecyclerview.adapter = adapter
         model.getData(searchedWord, false)
@@ -42,7 +52,7 @@ class HistoryFragment(private var searchedWord: String) : Fragment() {
         if (binding.historyFragmentRecyclerview.adapter != null) {
             throw IllegalStateException("ViewModel not initialised")
         }
-        val viewModel: HistoryViewModel by viewModel()
+        val viewModel: HistoryViewModel by scopeHistory.inject()
         model = viewModel
         model.subscribe().observe(viewLifecycleOwner) {
             renderData(it)
@@ -75,7 +85,7 @@ class HistoryFragment(private var searchedWord: String) : Fragment() {
                                             dataModel[i].text.toString(),
                                             dataModel[i].meanings?.firstOrNull()?.translation?.translation
                                                 ?: "",
-                                            dataModel[i].meanings?.firstOrNull()?.imageUrl?:""
+                                            dataModel[i].meanings?.firstOrNull()?.imageUrl ?: ""
                                         )
                                         dialog.show(
                                             childFragmentManager,

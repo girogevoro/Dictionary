@@ -8,24 +8,37 @@ import android.view.View.VISIBLE
 import android.widget.Toast
 import androidx.lifecycle.Observer
 import androidx.recyclerview.widget.LinearLayoutManager
+import androidx.recyclerview.widget.RecyclerView
 import com.girogevoro.dictionary.R
 import com.girogevoro.dictionary.databinding.ActivityMainBinding
 import com.girogevoro.data.AppState
 import com.girogevoro.data.DataModel
+import com.girogevoro.dictionary.utils.viewById
 import com.girogevoro.dictionary.view.base.BaseActivity
 import com.girogevoro.dictionary.view.history.HistoryFragment
 import com.girogevoro.dictionary.view.history.SeacrhInHistoryDialogFragment
 import com.girogevoro.dictionary.view.main.adapter.MainAdapter
+import org.koin.android.ext.android.getKoin
 import org.koin.androidx.viewmodel.ext.android.viewModel
+import org.koin.core.qualifier.named
 
 class MainActivity : BaseActivity<AppState>() {
 
-    override lateinit var model: MainViewModel
+
 
     private val observer = Observer<AppState> { renderData(it) }
 
     private lateinit var binding: ActivityMainBinding
+
+    private val mainActivityRecyclerView by viewById<RecyclerView>(R.id.main_activity_recyclerview)
+
     private var adapter: MainAdapter? = null
+    private val scopeActivity by lazy {
+        getKoin().createScope("mainActivityId", named<MainActivity>())
+    }
+
+    override  val model: MainViewModel by scopeActivity.inject()
+
 
     private val onListItemClickListener: MainAdapter.OnListItemClickListener =
         object : MainAdapter.OnListItemClickListener {
@@ -43,8 +56,6 @@ class MainActivity : BaseActivity<AppState>() {
         binding = ActivityMainBinding.inflate(layoutInflater)
         setContentView(binding.root)
 
-        val viewModel: MainViewModel by viewModel()
-        model = viewModel
         model.subscribe().observe(this@MainActivity) {
             renderData(it)
         }
@@ -70,6 +81,11 @@ class MainActivity : BaseActivity<AppState>() {
 
     }
 
+    override fun onDestroy() {
+        scopeActivity.close()
+        super.onDestroy()
+    }
+
     override fun renderData(appState: AppState) {
         when (appState) {
             is AppState.Success -> {
@@ -79,9 +95,9 @@ class MainActivity : BaseActivity<AppState>() {
                 } else {
                     showViewSuccess()
                     if (adapter == null) {
-                        binding.mainActivityRecyclerview.layoutManager =
+                        mainActivityRecyclerView.layoutManager =
                             LinearLayoutManager(applicationContext)
-                        binding.mainActivityRecyclerview.adapter =
+                        mainActivityRecyclerView.adapter =
                             MainAdapter(onListItemClickListener, dataModel)
                     } else {
                         adapter!!.setData(dataModel)
