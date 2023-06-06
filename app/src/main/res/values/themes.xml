@@ -15,4 +15,8 @@
         <item name="cardviewBackground">@color/dark_grey</item>
         <item name="cardviewTextColor">@color/lite_grey</item>
     </style>
+
+    <style name="Theme.DictionarySplash" parent="Theme.Dictionary" />
+
 </resources>
+

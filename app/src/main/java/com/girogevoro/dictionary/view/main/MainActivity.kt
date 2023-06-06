@@ -1,11 +1,17 @@
 package com.girogevoro.dictionary.view.main
 
+import android.animation.ObjectAnimator
+import android.os.Build
 import android.os.Bundle
 import android.view.Menu
 import android.view.MenuItem
+import android.view.View
 import android.view.View.GONE
 import android.view.View.VISIBLE
 import android.widget.Toast
+import androidx.core.animation.doOnEnd
+import androidx.core.splashscreen.SplashScreen.Companion.installSplashScreen
+import androidx.interpolator.view.animation.FastOutLinearInInterpolator
 import androidx.lifecycle.Observer
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
@@ -51,8 +57,8 @@ class MainActivity : BaseActivity<AppState>() {
         }
 
     override fun onCreate(savedInstanceState: Bundle?) {
-
         super.onCreate(savedInstanceState)
+        splashScreenStart()
         binding = ActivityMainBinding.inflate(layoutInflater)
         setContentView(binding.root)
 
@@ -79,6 +85,26 @@ class MainActivity : BaseActivity<AppState>() {
             throw IllegalStateException("ViewModel not initialised")
         }
 
+    }
+
+    private fun splashScreenStart() {
+        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.S) {
+            val splashScreen = installSplashScreen()
+            splashScreen.setOnExitAnimationListener { splashScreenProvider ->
+                ObjectAnimator.ofFloat(
+                    splashScreenProvider.view,
+                    View.TRANSLATION_Y,
+                    0f,
+                    -splashScreenProvider.view.height.toFloat()
+                ).apply {
+                    duration = 1000
+                    interpolator = FastOutLinearInInterpolator()
+                    doOnEnd {
+                        splashScreenProvider.remove()
+                    }
+                }.start()
+            }
+        }
     }
 
     override fun onDestroy() {
